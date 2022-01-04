@@ -47,7 +47,7 @@ public class UserService {
     }
 
     public ResponseEntity<?> deleteUser(Long id){
-        if (userRepository.findClientById(id) == null){
+        if (userRepository.findUserById(id) == null){
             return ResponseEntity.notFound().build();
         }
         else {
@@ -57,7 +57,7 @@ public class UserService {
     }
 
     public ResponseEntity<?> updateUser(User user){
-        if (userRepository.findClientById(user.getId()) != null){
+        if (userRepository.findUserById(user.getId()) != null){
             userRepository.save(user);
             return ResponseEntity.ok(200);
         }
@@ -69,7 +69,7 @@ public class UserService {
     public ResponseEntity<?> validateUser(User user){
         var users = userRepository.findAll();
         for (User item: users){
-            if (user.getName() == item.getName() && user.getPassword() == item.getPassword()){
+            if (user.getName().equals(item.getName()) && user.getPassword().equals(item.getPassword())){
                 return ResponseEntity.ok(200);
             }
         }

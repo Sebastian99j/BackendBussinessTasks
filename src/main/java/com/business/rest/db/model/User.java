@@ -1,5 +1,6 @@
 package com.business.rest.db.model;
 
+import com.sun.istack.NotNull;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,9 +10,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
+    @NotNull
     @Column(name = "name")
     private String name;
+    @NotNull
     @Column(name = "password")
     private String password;
 
