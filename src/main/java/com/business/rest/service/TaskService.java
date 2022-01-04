@@ -1,6 +1,8 @@
 package com.business.rest.service;
 
+import com.business.rest.db.model.Employee;
 import com.business.rest.db.model.Task;
+import com.business.rest.repository.EmployeeRepository;
 import com.business.rest.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,10 +14,12 @@ import java.util.List;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository){
+    public TaskService(TaskRepository taskRepository, EmployeeRepository employeeRepository){
         this.taskRepository = taskRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public List<Task> getAll(){
@@ -42,7 +46,9 @@ public class TaskService {
         }
     }
 
-    public void saveTask(Task task) {
+    public void saveTask(Task task, Long id) {
+        Employee employee = employeeRepository.findEmployeeById(id);
+        task.setEmployee(employee);
         taskRepository.save(task);
     }
 
@@ -56,8 +62,10 @@ public class TaskService {
         }
     }
 
-    public ResponseEntity<?> updateTask(Task task){
+    public ResponseEntity<?> updateTask(Task task, Long id){
         if (taskRepository.findTaskById(task.getId()) != null){
+            Employee employee = employeeRepository.findEmployeeById(id);
+            task.setEmployee(employee);
             taskRepository.save(task);
             return ResponseEntity.ok(200);
         }

@@ -1,7 +1,6 @@
 package com.business.rest.db.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -87,5 +86,13 @@ public class Employee {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
     }
 }

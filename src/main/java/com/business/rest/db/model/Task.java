@@ -97,4 +97,12 @@ public class Task {
     public void setOpen(Boolean open) {
         this.open = open;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }

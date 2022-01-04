@@ -1,7 +1,9 @@
 package com.business.rest.service;
 
 import com.business.rest.db.model.Enterprise;
+import com.business.rest.db.model.User;
 import com.business.rest.repository.EnterpriseRepository;
+import com.business.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +14,12 @@ import java.util.List;
 @Service
 public class EnterpriseService {
     private final EnterpriseRepository enterpriseRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public EnterpriseService(EnterpriseRepository enterpriseRepository){
+    public EnterpriseService(EnterpriseRepository enterpriseRepository, UserRepository userRepository){
         this.enterpriseRepository = enterpriseRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Enterprise> getAll(){
@@ -42,7 +46,9 @@ public class EnterpriseService {
         }
     }
 
-    public void saveEnterprise(Enterprise enterprise) {
+    public void saveEnterprise(Enterprise enterprise, Long id) {
+        User user = userRepository.findUserById(id);
+        enterprise.setUser(user);
         enterpriseRepository.save(enterprise);
     }
 
@@ -56,8 +62,10 @@ public class EnterpriseService {
         }
     }
 
-    public ResponseEntity<?> updateEnterprise(Enterprise enterprise){
+    public ResponseEntity<?> updateEnterprise(Enterprise enterprise, Long id){
         if (enterpriseRepository.findEnterpriseById(enterprise.getId()) != null){
+            User user = userRepository.findUserById(id);
+            enterprise.setUser(user);
             enterpriseRepository.save(enterprise);
             return ResponseEntity.ok(200);
         }

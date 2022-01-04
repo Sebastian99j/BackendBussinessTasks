@@ -1,7 +1,9 @@
 package com.business.rest.service;
 
 import com.business.rest.db.model.Employee;
+import com.business.rest.db.model.Enterprise;
 import com.business.rest.repository.EmployeeRepository;
+import com.business.rest.repository.EnterpriseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +14,12 @@ import java.util.List;
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final EnterpriseRepository enterpriseRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository){
+    public EmployeeService(EmployeeRepository employeeRepository, EnterpriseRepository enterpriseRepository){
         this.employeeRepository = employeeRepository;
+        this.enterpriseRepository = enterpriseRepository;
     }
 
     public List<Employee> getAll(){
@@ -42,7 +46,9 @@ public class EmployeeService {
         }
     }
 
-    public void saveEmployee(Employee employee) {
+    public void saveEmployee(Employee employee, Long id) {
+        Enterprise enterprise = enterpriseRepository.findEnterpriseById(id);
+        employee.setEnterprise(enterprise);
         employeeRepository.save(employee);
     }
 
@@ -56,8 +62,10 @@ public class EmployeeService {
         }
     }
 
-    public ResponseEntity<?> updateEmployee(Employee employee){
+    public ResponseEntity<?> updateEmployee(Employee employee, Long id){
         if (employeeRepository.findEmployeeById(employee.getId()) != null){
+            Enterprise enterprise = enterpriseRepository.findEnterpriseById(id);
+            employee.setEnterprise(enterprise);
             employeeRepository.save(employee);
             return ResponseEntity.ok(200);
         }

@@ -34,11 +34,11 @@ public class TaskController {
         return taskService.save(task);
     }
 
-    @RequestMapping(path = "/save",
+    @RequestMapping(path = "/save/{id}",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void saveTask(@RequestBody Task task) {
-        taskService.saveTask(task);
+    public void saveTask(@RequestBody Task task, @PathVariable Long id) {
+        taskService.saveTask(task, id);
     }
 
     @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/delete/{id}")
@@ -46,8 +46,8 @@ public class TaskController {
         return taskService.deleteTask(id);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/put")
-    public ResponseEntity<?> updateTask(@RequestBody Task task){
-        return taskService.updateTask(task);
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/put/{id}")
+    public ResponseEntity<?> updateTask(@RequestBody Task task, @PathVariable Long id){
+        return taskService.updateTask(task, id);
     }
 }
