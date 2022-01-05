@@ -5,13 +5,18 @@ import com.business.rest.db.model.Task;
 import com.business.rest.repository.EmployeeRepository;
 import com.business.rest.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.List;
 
 @Service
+@Scope(value = WebApplicationContext.SCOPE_SESSION,
+        proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class TaskService {
     private final TaskRepository taskRepository;
     private final EmployeeRepository employeeRepository;
