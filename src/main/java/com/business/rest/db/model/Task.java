@@ -23,6 +23,8 @@ public class Task {
     private String end_date;
     @Column(name = "status")
     private String status;
+    @Column(name = "priority")
+    private String priority;
     @Column(name = "open")
     private Boolean open;
     @JsonIgnore
