@@ -16,6 +16,8 @@ public class Enterprise {
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
     private User user;
+    @Column(name = "name")
+    private String name;
     @Column(name = "description")
     private String description;
     @Column(name = "localization")
@@ -71,5 +73,13 @@ public class Enterprise {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
