@@ -1,7 +1,6 @@
 package com.business.rest.db.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,7 +25,7 @@ public class Task {
     @Column(name = "priority")
     private String priority;
     @Column(name = "open")
-    private Boolean open;
+    private String open;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "employee_id")
@@ -34,7 +33,7 @@ public class Task {
 
     public Task(){}
 
-    public Task(Long id, String name, String description, String start_date, String end_date, String status, Boolean open) {
+    public Task(Long id, String name, String description, String start_date, String end_date, String status, String open) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -92,11 +91,11 @@ public class Task {
         this.status = status;
     }
 
-    public Boolean getOpen() {
+    public String getOpen() {
         return open;
     }
 
-    public void setOpen(Boolean open) {
+    public void setOpen(String open) {
         this.open = open;
     }
 
