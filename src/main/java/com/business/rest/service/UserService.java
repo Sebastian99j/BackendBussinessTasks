@@ -1,5 +1,6 @@
 package com.business.rest.service;
 
+import com.business.rest.db.model.Response;
 import com.business.rest.db.model.User;
 import com.business.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,13 +72,13 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<?> validateUser(User user){
+    public ResponseEntity<Response> validateUser(User user){
         var users = userRepository.findAll();
         for (User item: users){
             if (user.getName().equals(item.getName()) && user.getPassword().equals(item.getPassword())){
-                return ResponseEntity.ok(200);
+                return ResponseEntity.ok(new Response("ok"));
             }
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(new Response("reject"));
     }
 }
