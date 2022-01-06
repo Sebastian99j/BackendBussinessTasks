@@ -34,11 +34,11 @@ public class EnterpriseController {
         return enterpriseService.save(enterprise);
     }
 
-    @RequestMapping(path = "/save/{id}",
+    @RequestMapping(path = "/save",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void saveEnterprise(@RequestBody Enterprise enterprise, @PathVariable Long id) {
-        enterpriseService.saveEnterprise(enterprise, id);
+    public void saveEnterprise(@RequestBody Enterprise enterprise) {
+        enterpriseService.saveEnterprise(enterprise);
     }
 
     @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/delete/{id}")
@@ -46,8 +46,8 @@ public class EnterpriseController {
         return enterpriseService.deleteEnterprise(id);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/put/{id}")
-    public ResponseEntity<?> updateEnterprise(@RequestBody Enterprise enterprise, @PathVariable Long id){
-        return enterpriseService.updateEnterprise(enterprise, id);
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/put")
+    public ResponseEntity<?> updateEnterprise(@RequestBody Enterprise enterprise){
+        return enterpriseService.updateEnterprise(enterprise);
     }
 }

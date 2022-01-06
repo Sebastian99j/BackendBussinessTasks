@@ -2,8 +2,10 @@ package com.business.rest.service;
 
 import com.business.rest.db.model.Employee;
 import com.business.rest.db.model.Enterprise;
+import com.business.rest.db.model.User;
 import com.business.rest.repository.EmployeeRepository;
 import com.business.rest.repository.EnterpriseRepository;
+import com.business.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -20,11 +22,13 @@ import java.util.List;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EnterpriseRepository enterpriseRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, EnterpriseRepository enterpriseRepository){
+    public EmployeeService(EmployeeRepository employeeRepository, EnterpriseRepository enterpriseRepository, UserRepository userRepository){
         this.employeeRepository = employeeRepository;
         this.enterpriseRepository = enterpriseRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Employee> getAll(){
@@ -51,9 +55,11 @@ public class EmployeeService {
         }
     }
 
-    public void saveEmployee(Employee employee, Long id) {
+    public void saveEmployee(Employee employee, Long id, Long id2) {
         Enterprise enterprise = enterpriseRepository.findEnterpriseById(id);
         employee.setEnterprise(enterprise);
+        User user = userRepository.findUserById(id2);
+        employee.setUser(user);
         employeeRepository.save(employee);
     }
 
@@ -67,10 +73,12 @@ public class EmployeeService {
         }
     }
 
-    public ResponseEntity<?> updateEmployee(Employee employee, Long id){
+    public ResponseEntity<?> updateEmployee(Employee employee, Long id, Long id2){
         if (employeeRepository.findEmployeeById(employee.getId()) != null){
             Enterprise enterprise = enterpriseRepository.findEnterpriseById(id);
             employee.setEnterprise(enterprise);
+            User user = userRepository.findUserById(id2);
+            employee.setUser(user);
             employeeRepository.save(employee);
             return ResponseEntity.ok(200);
         }

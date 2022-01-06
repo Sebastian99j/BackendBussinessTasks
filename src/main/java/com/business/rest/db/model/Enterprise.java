@@ -13,9 +13,6 @@ public class Enterprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "enterprise_id")
     private Long id;
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true)
-    private User user;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
@@ -27,9 +24,8 @@ public class Enterprise {
 
     public Enterprise(){}
 
-    public Enterprise(Long id, User user, String description, String localization, List<Employee> employees) {
+    public Enterprise(Long id, String description, String localization, List<Employee> employees) {
         this.id = id;
-        this.user = user;
         this.description = description;
         this.localization = localization;
         this.employees = employees;
@@ -41,14 +37,6 @@ public class Enterprise {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getDescription() {

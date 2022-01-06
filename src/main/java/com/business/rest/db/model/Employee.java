@@ -14,6 +14,9 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
     @Column(name = "first_name")
     private String first_name;
     @Column(name = "last_name")
@@ -31,13 +34,15 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(Long id, String first_name, String last_name, String gender, Integer age, List<Task> tasks) {
+    public Employee(Long id, User user, String first_name, String last_name, String gender, Integer age, List<Task> tasks, Enterprise enterprise) {
         this.id = id;
+        this.user = user;
         this.first_name = first_name;
         this.last_name = last_name;
         this.gender = gender;
         this.age = age;
         this.tasks = tasks;
+        this.enterprise = enterprise;
     }
 
     public Long getId() {
@@ -94,5 +99,13 @@ public class Employee {
 
     public void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

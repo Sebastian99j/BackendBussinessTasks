@@ -34,11 +34,11 @@ public class EmployeeController {
         return employeeService.save(employee);
     }
 
-    @RequestMapping(path = "/save/{id}",
+    @RequestMapping(path = "/save/{id}/{id2}",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void saveClient(@RequestBody Employee employee, @PathVariable Long id) {
-        employeeService.saveEmployee(employee, id);
+    public void saveClient(@RequestBody Employee employee, @PathVariable Long id, @PathVariable Long id2) {
+        employeeService.saveEmployee(employee, id, id2);
     }
 
     @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/delete/{id}")
@@ -46,8 +46,8 @@ public class EmployeeController {
         return employeeService.deleteEmployee(id);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/put/{id}")
-    public ResponseEntity<?> updateClient(@RequestBody Employee employee, @PathVariable Long id){
-        return employeeService.updateEmployee(employee, id);
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/put/{id}/{id2}")
+    public ResponseEntity<?> updateClient(@RequestBody Employee employee, @PathVariable Long id, @PathVariable Long id2){
+        return employeeService.updateEmployee(employee, id, id2);
     }
 }

@@ -1,9 +1,7 @@
 package com.business.rest.service;
 
 import com.business.rest.db.model.Enterprise;
-import com.business.rest.db.model.User;
 import com.business.rest.repository.EnterpriseRepository;
-import com.business.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -19,12 +17,11 @@ import java.util.List;
         proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class EnterpriseService {
     private final EnterpriseRepository enterpriseRepository;
-    private final UserRepository userRepository;
+
 
     @Autowired
-    public EnterpriseService(EnterpriseRepository enterpriseRepository, UserRepository userRepository){
+    public EnterpriseService(EnterpriseRepository enterpriseRepository){
         this.enterpriseRepository = enterpriseRepository;
-        this.userRepository = userRepository;
     }
 
     public List<Enterprise> getAll(){
@@ -51,9 +48,7 @@ public class EnterpriseService {
         }
     }
 
-    public void saveEnterprise(Enterprise enterprise, Long id) {
-        User user = userRepository.findUserById(id);
-        enterprise.setUser(user);
+    public void saveEnterprise(Enterprise enterprise) {
         enterpriseRepository.save(enterprise);
     }
 
@@ -67,10 +62,8 @@ public class EnterpriseService {
         }
     }
 
-    public ResponseEntity<?> updateEnterprise(Enterprise enterprise, Long id){
+    public ResponseEntity<?> updateEnterprise(Enterprise enterprise){
         if (enterpriseRepository.findEnterpriseById(enterprise.getId()) != null){
-            User user = userRepository.findUserById(id);
-            enterprise.setUser(user);
             enterpriseRepository.save(enterprise);
             return ResponseEntity.ok(200);
         }
