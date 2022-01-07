@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import static com.business.rest.utils.Constants.TOKEN;
 
 @RestController
 @CrossOrigin("*")
@@ -20,7 +21,12 @@ public class ValidateController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response> validate(@RequestBody User user) {
-        return userService.validateUser(user);
+    public ResponseEntity<Response> validate(@RequestBody User user, @RequestHeader("Authorization") String token) {
+        if (token.equals(TOKEN)){
+            return userService.validateUser(user);
+        }
+        else {
+            return ResponseEntity.ok(new Response("reject"));
+        }
     }
 }
