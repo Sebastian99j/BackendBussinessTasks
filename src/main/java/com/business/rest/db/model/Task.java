@@ -12,19 +12,19 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", length = 50)
     private String name;
-    @Column(name = "description")
+    @Column(name = "description", length = 100)
     private String description;
-    @Column(name = "start_date")
+    @Column(name = "start_date", length = 15)
     private String start_date;
-    @Column(name = "end_date")
+    @Column(name = "end_date", length = 15)
     private String end_date;
-    @Column(name = "status")
+    @Column(name = "status", length = 30)
     private String status;
-    @Column(name = "priority")
+    @Column(name = "priority", length = 10)
     private String priority;
-    @Column(name = "open")
+    @Column(name = "open", length = 10)
     private String open;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)

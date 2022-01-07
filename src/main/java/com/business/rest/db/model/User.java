@@ -13,10 +13,10 @@ public class User {
     @Column(name = "user_id")
     private Long id;
     @NonNull
-    @Column(name = "name")
+    @Column(name = "name", length = 25)
     private String name;
     @NonNull
-    @Column(name = "password")
+    @Column(name = "password", length = 25)
     private String password;
 
     public User(){}

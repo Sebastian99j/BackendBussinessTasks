@@ -17,13 +17,13 @@ public class Employee {
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
     private User user;
-    @Column(name = "first_name")
+    @Column(name = "first_name", length = 25)
     private String first_name;
-    @Column(name = "last_name")
+    @Column(name = "last_name", length = 25)
     private String last_name;
-    @Column(name = "gender")
+    @Column(name = "gender", length = 10)
     private String gender;
-    @Column(name = "age")
+    @Column(name = "age", length = 5)
     private Integer age;
     @OneToMany(mappedBy = "employee")
     private List<Task> tasks = new ArrayList<>();

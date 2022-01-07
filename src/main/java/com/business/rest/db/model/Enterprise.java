@@ -13,11 +13,11 @@ public class Enterprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "enterprise_id")
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", length = 25)
     private String name;
-    @Column(name = "description")
+    @Column(name = "description", length = 100)
     private String description;
-    @Column(name = "localization")
+    @Column(name = "localization", length = 50)
     private String localization;
     @OneToMany(mappedBy = "enterprise")
     private List<Employee> employees = new ArrayList<>();
