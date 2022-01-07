@@ -106,4 +106,12 @@ public class Task {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 }
