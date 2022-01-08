@@ -3,6 +3,8 @@ package com.business.rest.db.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlRootElement
 @Entity
@@ -26,6 +28,11 @@ public class Task {
     private String priority;
     @Column(name = "open", length = 10)
     private String open;
+    @Column(name = "completion", length = 10)
+    private Integer completion;
+    @Column(name = "comments")
+    @ElementCollection
+    private List<String> comments = new ArrayList<>();
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "employee_id")
@@ -113,5 +120,21 @@ public class Task {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public Integer getCompletion() {
+        return completion;
+    }
+
+    public void setCompletion(Integer completion) {
+        this.completion = completion;
+    }
+
+    public List<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<String> comments) {
+        this.comments = comments;
     }
 }
